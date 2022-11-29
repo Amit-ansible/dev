@@ -56,7 +56,7 @@ pipeline {
             agent {label 'linux_slave'}
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                git 'https://github.com/Amit-ansible/dev.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn package"
