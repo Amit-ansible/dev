@@ -12,7 +12,6 @@ pipeline {
             agent any
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn compile"
@@ -23,14 +22,14 @@ pipeline {
 
             
           }
-          stage('compile') {
+          stage('codereview') {
             agent any
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                
 
                 // Run Maven on a Unix agent.
-                sh "mvn compile"
+                sh "mvn pmd:pmd"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -39,14 +38,13 @@ pipeline {
             
           }
           
-          stage('compile') {
+          stage('unit_test') {
             agent any
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
                 // Run Maven on a Unix agent.
-                sh "mvn compile"
+                sh "mvn test"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
@@ -55,7 +53,7 @@ pipeline {
             
           }
           stage('package') {
-            agent any
+            agent {label 'linux_slave'}
             steps {
                 // Get some code from a GitHub repository
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
